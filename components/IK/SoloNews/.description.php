@@ -2,10 +2,10 @@
 $arComponentDescription = array(
     "NAME" => "Одиночная новость",
     "PATH" => array(
-        "ID" => "kontur",
-        'NAME' => 'Компоненты kontur',
+        "ID" => "IK",
+        'NAME' => 'Компоненты IK',
         "CHILD" => array(
-            "ID" => "content",
+            "ID" => "Сontent",
             "NAME" => "Контент"
         )
     ),

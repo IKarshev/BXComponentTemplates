@@ -1,9 +1,9 @@
 <? if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die(); 
 $arComponentDescription = array(
-    "NAME" => "Сертификаты",
+    "NAME" => "Слайдер вертикальныйх фото",
     "PATH" => array(
-        "ID" => "kontur",
-        'NAME' => 'Компоненты kontur',
+        "ID" => "IK",
+        'NAME' => 'Компоненты IK',
         "CHILD" => array(
             "ID" => "Sliders",
             "NAME" => "Слайдеры"

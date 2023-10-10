@@ -1,32 +1,39 @@
 <?require_once($_SERVER['DOCUMENT_ROOT'] . "/bitrix/modules/main/include/prolog_before.php");
+use \Bitrix\Main\Loader;
+use \Bitrix\Iblock\SectionTable;
+use \Bitrix\Iblock\ElementTable;
+use \Bitrix\Iblock\PropertyTable;
+use \Bitrix\Iblock\IblockTable;
+Loader::includeModule('iblock');
+
 
 // Тип инфоблока
 $iblockTypes = [];
-$result = \Bitrix\Iblock\TypeTable::getList( [
+$result = \Bitrix\Iblock\TypeTable::getList([
     'select' => [
         'ID',
         'NAME' => 'LANG_MESSAGE.NAME',
     ],
     'filter' => ['=LANG_MESSAGE.LANGUAGE_ID' => 'ru'],
-] );
+]);
 while ($row = $result->fetch()) {
     $iblockTypes[$row['ID']] = $row['NAME'];
-}
+};
 
 // инфоблок
-$iblocks = [];
-$result = \Bitrix\Iblock\IblockTable::getList( [
+$iblocks = array();
+$result = IblockTable::getList([
     'select' => ['ID', 'NAME'],
-    'filter' => ['IBLOCK_TYPE_ID' => $arCurrentValues['iblockType']],
-] );
+    'filter' => ['IBLOCK_TYPE_ID' => $arCurrentValues['IBLOCKTYPE']],
+]);
 while ($row = $result->fetch()) {
     $iblocks[$row['ID']] = $row['NAME'];
-}
+};
 
 // Элемент инфоблока
-$elements = array();
+$elements = [];
 $arSelect = Array("ID", "NAME", "DATE_ACTIVE_FROM");
-$arFilter = Array("IBLOCK_ID"=>$arCurrentValues["iblock"], "ACTIVE_DATE"=>"Y", "ACTIVE"=>"Y");
+$arFilter = Array("IBLOCK_ID"=>$arCurrentValues["IBLOCK"], "ACTIVE_DATE"=>"Y", "ACTIVE"=>"Y");
 $res = CIBlockElement::GetList(Array(), $arFilter, false, Array(), $arSelect);
 while($ob = $res->GetNextElement()){
     $arFields = $ob->GetFields();
@@ -40,7 +47,7 @@ $arComponentParameters = array(
         ),
     ),
     "PARAMETERS" => array(
-        "iblockType" => array(
+        "IBLOCKTYPE" => array(
             "PARENT" => "BASE",
             "NAME" => "Тип инфоблока",
             "TYPE" => "LIST",
@@ -48,7 +55,7 @@ $arComponentParameters = array(
             "VALUES" => $iblockTypes,
             "REFRESH" => "Y",
         ),
-        "iblock" =>  array(
+        "IBLOCK" =>  array(
             "PARENT" =>  "BASE",
             "NAME" =>  "id инфоблока",
             "TYPE" =>  "LIST",
@@ -59,7 +66,6 @@ $arComponentParameters = array(
             "NAME" => "ID галереи",
             "TYPE" => "LIST",
             "PARENT" => "BASE",
-            "ADDITIONAL_VALUES" => "Y",
             "VALUES" => $elements,
             "REFRESH" => "Y",
         ),
