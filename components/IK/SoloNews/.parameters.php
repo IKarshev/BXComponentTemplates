@@ -37,13 +37,27 @@ $arFilter = Array("IBLOCK_ID"=>$arCurrentValues["IBLOCK"], "ACTIVE_DATE"=>"Y", "
 $res = CIBlockElement::GetList(Array(), $arFilter, false, Array(), $arSelect);
 while($ob = $res->GetNextElement()){
     $arFields = $ob->GetFields();
-    $elements[ $arFields["ID"] ] = $arFields["NAME"];
+    $elements[ $arFields["ID"] ] = '['. $arFields["ID"] .'] '. $arFields["NAME"];
 }
+
+$props = array();
+$rsProperty = \Bitrix\Iblock\PropertyTable::getList(array(
+    'filter' => array('IBLOCK_ID'=>$arCurrentValues['IBLOCK'],'ACTIVE'=>'Y'),
+));
+while($arProperty=$rsProperty->fetch()){
+    $props[ $arProperty['CODE'] ] = "[".$arProperty['ID']."] ".$arProperty["NAME"];
+};
+
+
+
 
 $arComponentParameters = array(
     "GROUPS" => array(
         "BASE" => array(
             "NAME" => "основные настройки",
+        ),
+        "PROPS" => array(
+            "NAME" => "Свойства",
         ),
     ),
     "PARAMETERS" => array(
@@ -63,10 +77,18 @@ $arComponentParameters = array(
             "REFRESH" =>  "Y",
         ),
         "ELEMENT_ID" => array(
-            "NAME" => "ID галереи",
+            "NAME" => "ID элемента",
             "TYPE" => "LIST",
             "PARENT" => "BASE",
             "VALUES" => $elements,
+            "REFRESH" => "Y",
+        ),
+        "PROPERTYS" => array(
+            "NAME" => "Свойства",
+            "TYPE" => "LIST",
+            "PARENT" => "PROPS",
+            "MULTIPLE" => "Y",
+            "VALUES" => $props,
             "REFRESH" => "Y",
         ),
     ),
