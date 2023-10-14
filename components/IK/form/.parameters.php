@@ -76,6 +76,22 @@ $arComponentParameters = array(
             "VALUES" => $props,
             "REFRESH" => "Y",
         ),
+        "PHONE_MASK" => array(
+            "NAME" => "Свойства с маской телефона",
+            "TYPE" => "LIST",
+            "PARENT" => "PROPS",
+            "MULTIPLE" => "Y",
+            "VALUES" => $props,
+            "REFRESH" => "Y",
+        ),
+        "EMAIL_MASK" => array(
+            "NAME" => "Свойства с маской почты",
+            "TYPE" => "LIST",
+            "PARENT" => "PROPS",
+            "MULTIPLE" => "Y",
+            "VALUES" => $props,
+            "REFRESH" => "Y",
+        ),
         "ADD_FORM" => array(
             "PARENT" => "SAVE_SETTINGS",
             "NAME" => "Добавлять результат в инфоблок?",

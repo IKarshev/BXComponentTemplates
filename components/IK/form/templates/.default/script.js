@@ -22,22 +22,26 @@ BX.ready(function(){
                 }).then(function(response){
     
                     console.log("Отправлено");
-                    
+
                 });
             },
 
         };
         propertys.forEach(function(item, i, arr) {
-            ValidateSettings["rules"][`${item.CODE}`] = {
+            var code = (item.PROPERTY_TYPE != "CHECKBOX") ? item.CODE : `${item.CODE}[]`;
+
+            ValidateSettings["rules"][`${code}`] = {
                 "required": (item.IS_REQUIRED == "Y") ? true : false,
+                "email" : (item.MASK == "EMAIL") ? true : false,
             };
-            ValidateSettings["messages"][`${item.CODE}`] = {
+            ValidateSettings["messages"][`${code}`] = {
                 "required": `${ERROR_MESSAGES[item.PROPERTY_TYPE]} ${item.NAME}`,
+                "email": `${ERROR_MESSAGES["EMAIL_VALIDATE"]} ${item.NAME}`,
             };
         });
         
         // Установка масок
-        // $(`${form_id} .phone-mask`).inputmask("mask", {"mask": "+7 (999) 999-99 99"});
+        $(`#${form_id} input[data-mask=PHONE]`).inputmask("mask", {"mask": "+7 (999) 999-99 99"});
     
 
 

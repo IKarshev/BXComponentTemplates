@@ -14,7 +14,7 @@
                 
                 <div class="input_cont <?=$arItem["PROPERTY_TYPE"];?>">
                     <label for="<?=$arItem["CODE"]?>" id="<?=$arItem["CODE"]?>"><?=$arItem["NAME"]?></label>
-                    <input name="<?=$arItem["CODE"]?>" type="text" placeholder="Введите <?=$arItem["NAME"]?>">
+                    <input data-mask="<?=$arItem["MASK"]?>" name="<?=$arItem["CODE"]?>" type="text" placeholder="Введите <?=$arItem["NAME"]?>">
                 </div>     
                 
                 <?break;
@@ -23,6 +23,8 @@
                 <div class="input_cont <?=$arItem["PROPERTY_TYPE"];?>">
                     <label for="<?=$arItem["CODE"]?>"><?=$arItem["NAME"]?></label>
                     <select name="<?=$arItem["CODE"]?>" id="<?=$arItem["CODE"]?>">
+                        <option value="" selected disabled>Выберите пункт</option>
+
                         <?foreach ($arItem["LIST_ITEMS"] as $ListKey => $ListItem):?>
                             <option value="<?=$ListItem["XML_ID"]?>"><?=$ListItem["VALUE"]?></option>
                         <?endforeach;?>

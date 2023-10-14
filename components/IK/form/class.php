@@ -79,6 +79,9 @@ class FormComponent extends CBitrixComponent implements Controllerable{
         $arParams["ERROR_MESSAGES"] = array(
             "FILE" => Loc::getMessage('ERROR_FILE'),
             "STRING" => Loc::getMessage('ERROR_STRING'),
+            "CHECKBOX" => Loc::getMessage('ERROR_CHECKBOX'),
+            "LIST" => Loc::getMessage('ERROR_LIST'),
+            "EMAIL_VALIDATE" => Loc::getMessage('EMAIL_VALIDATE'),
         );
         
         return $arParams;
@@ -97,6 +100,17 @@ class FormComponent extends CBitrixComponent implements Controllerable{
             "C" => "CHECKBOX",
         );
 
+        // Формируем массив с масками
+        $MASK = array();
+        foreach ($this->arParams["PHONE_MASK"] as $arkey => $arItem) {
+            $MASK[ $arItem ] = "PHONE";
+        };
+        foreach ($this->arParams["EMAIL_MASK"] as $arkey => $arItem) {
+            $MASK[ $arItem ] = "EMAIL";
+        };
+
+        $this->arResult['MASK'] = $MASK;
+
         // получаем параметры
         $rsProperty = \Bitrix\Iblock\PropertyTable::getList(array(
             'filter' => array('IBLOCK_ID'=>$this->arParams['IBLOCK'],'ACTIVE'=>'Y'),
@@ -111,6 +125,7 @@ class FormComponent extends CBitrixComponent implements Controllerable{
                 "MULTIPLE" => $arProperty["MULTIPLE"],
                 "PROPERTY_TYPE" => $PropTypeList[ $arProperty["PROPERTY_TYPE"] ],
                 "IS_REQUIRED" => $arProperty["IS_REQUIRED"],
+                "MASK" => (array_key_exists($arProperty["CODE"], $MASK)) ? $MASK[$arProperty["CODE"]] : "",
             );
             
             $listItem = array();
