@@ -76,6 +76,11 @@ class FormComponent extends CBitrixComponent implements Controllerable{
 
 
     public function onPrepareComponentParams($arParams){//обработка $arParams (метод подключается автоматически)
+        $arParams["ERROR_MESSAGES"] = array(
+            "FILE" => Loc::getMessage('ERROR_FILE'),
+            "STRING" => Loc::getMessage('ERROR_STRING'),
+        );
+        
         return $arParams;
     }
 
@@ -89,6 +94,7 @@ class FormComponent extends CBitrixComponent implements Controllerable{
             "S" => "STRING",
             "L" => "LIST",
             "F" => "FILE",
+            "C" => "CHECKBOX",
         );
 
         // получаем параметры
@@ -119,6 +125,9 @@ class FormComponent extends CBitrixComponent implements Controllerable{
                 $PropertyArr["LIST_ITEMS"] = $listItem;
             };
 
+            if( $PropertyArr["PROPERTY_TYPE"] == "LIST" && $arProperty["LIST_TYPE"] == "C" ){
+                $PropertyArr["PROPERTY_TYPE"] = $PropTypeList[ $arProperty["LIST_TYPE"] ];
+            };
         
             
             $this->arResult["PROPS"][] = $PropertyArr;

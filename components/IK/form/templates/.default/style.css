@@ -42,13 +42,20 @@ form.form_default .input_cont.FILE input{
     left: -100%;
 }
 
-form.form_default .input_cont.FILE label{
+form.form_default .input_cont.FILE label, form.form_default .input_cont .checkbox_cont label{
     font-size: 14px;
     font-weight: 200;
     margin-bottom: 0;
 }
-form.form_default .input_cont.FILE .file-title{
+form.form_default .input_cont span.title{
     font-size: 16px;
     font-weight: bold;
     margin-bottom: 10px;
+}
+
+.form.form_default .input_cont .checkbox_cont{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
 }
