@@ -8,7 +8,8 @@ BX.ready(function(){
             messages : {},
             errorElement : "div",
             errorPlacement : function(error, element) {
-                $(`#${form_id} .error_placement`).append(error);
+                // $(`#${form_id} .error_placement`).append(error);
+                $(element).closest(".input_cont").find(".error_placement").append(error);
             },
             submitHandler : function(form, event){
                 event.preventDefault();    

@@ -175,6 +175,9 @@ class FormComponent extends CBitrixComponent implements Controllerable{
             };
         };
 
+        /**
+         * Формируем массивы с id файлов
+         */
         foreach ($files as $InputKey => $InputItem) {// inputs
             foreach ($InputItem['tmp_name'] as $arkey => $arItem) {
                 $FileData = array(
