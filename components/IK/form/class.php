@@ -160,39 +160,55 @@ class FormComponent extends CBitrixComponent implements Controllerable{
         // Получаем параметры компонента из сессии
         $this->arParams = $_SESSION['arParams'];
 
-        /*
+        
+        $PROP = array();
         // Валидация текстовых полей
-        foreach ($post as $key => $value) {
-            if( $value != "" ){// Проверяем пустые массивы
-                if( gettype($value) == "array" ){
-                    foreach ($value as $key2 => $value2) {
-                        $arResult[$key][] = $this->validate_string( $value2 );
+        foreach ($post as $arkey => $arItem) {
+            if( $arItem != "" ){// Проверяем пустые массивы
+                if( is_array($arItem) ){
+                    foreach ($arItem as $key => $value) {
+                        $PROP[$arkey][] = $this->validate_string( $value );
                     };
                 } else{// Валидация ключей массивов (списки)
-                    $arResult[$key] = $this->validate_string( $value );
+                    $PROP[$arkey] = $this->validate_string( $arItem );
                 };
             };
         };
 
+        foreach ($files as $InputKey => $InputItem) {// inputs
+            foreach ($InputItem['tmp_name'] as $arkey => $arItem) {
+                $FileData = array(
+                    "name" => $InputItem['name'][$arkey],
+                    "size" => $InputItem['size'][$arkey],
+                    "tmp_name" => $InputItem['tmp_name'][$arkey],
+                    "type" => $InputItem['type'][$arkey],
+                );
+
+                $FileID = CFile::SaveFile( $FileData, "iblock" );
+                $PROP[$InputKey][] = $FileID;
+                $UploadFiles[] = $FileID;
+            };
+        };
 
         // Добавление в инфоблок
-        $el = new CIBlockElement;
-        $PROP["TELEPHONE_NUMBER"] = $arResult["phone"];
-        $arLoadProductArray = Array(
-            "MODIFIED_BY" => "1",
-            "IBLOCK_SECTION_ID" => false,
-            "IBLOCK_ID" => $this->arParams["IBLOCK"],
-            "PROPERTY_VALUES"=> $PROP,
-            "NAME" => "Заявка от ".date('d.m.Y'),
-            "ACTIVE" => "Y",
-        );
-        $PRODUCT_ID = $el->Add($arLoadProductArray);
+        if( $this->arParams['ADD_FORM'] == 'Y' ){
+            $el = new CIBlockElement;
+            $arLoadProductArray = Array(
+                "MODIFIED_BY" => "1",
+                "IBLOCK_SECTION_ID" => false,
+                "IBLOCK_ID" => $this->arParams["IBLOCK"],
+                "PROPERTY_VALUES"=> $PROP,
+                "NAME" => "Данные от ".date('d.m.Y'),
+                "ACTIVE" => "Y",
+            );
+            $PRODUCT_ID = $el->Add($arLoadProductArray);
+        };
 
         // Почтовое событие
-        $PROP["DATE"] = date('d.m.Y H:i');
-        CEvent::Send("ORDER_CALL", $arResult["SITE_ID"], $PROP);
-
-        */
+        if( $this->arParams['SEND_MAIL'] == 'Y' && (isset($this->arParams['MAIL_TEMPLATE']) && $this->arParams['MAIL_TEMPLATE'] != "") ){
+            CEvent::Send( $this->arParams['MAIL_TEMPLATE'] , SITE_ID, $PROP, "N", $UploadFiles );
+        };
+        
     } 
 
 }

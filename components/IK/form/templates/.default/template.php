@@ -1,7 +1,7 @@
 <?require_once($_SERVER['DOCUMENT_ROOT'] . "/bitrix/modules/main/include/prolog_before.php");?>
 
 
-<pre><?print_r( $arResult )?></pre>
+<pre><?print_r( $arParams )?></pre>
 
 <form id="<?=$arResult["form_id"]?>" class="form_default" method="post" action="" enctype="multipart/form-data">
     <div class="text">
@@ -26,7 +26,7 @@
                         <option value="" selected disabled>Выберите пункт</option>
 
                         <?foreach ($arItem["LIST_ITEMS"] as $ListKey => $ListItem):?>
-                            <option value="<?=$ListItem["XML_ID"]?>"><?=$ListItem["VALUE"]?></option>
+                            <option value="<?=$ListItem["ID"]?>"><?=$ListItem["VALUE"]?></option>
                         <?endforeach;?>
                     </select>
                 </div>
@@ -36,8 +36,8 @@
 
                 <div class="input_cont <?=$arItem["PROPERTY_TYPE"];?>">
                     <span class="title"><?=$arItem["NAME"]?></span>
-                    <label for="<?=$arItem["CODE"]?>" <?=($arItem["MULTIPLE"] == "Y")? 'multiple' : ''?> >выберите файл</label>
-                    <input type="file" name="<?=$arItem["CODE"]?>" id="<?=$arItem["CODE"]?>">
+                    <label for="<?=$arItem["CODE"]?>" >выберите файл</label>
+                    <input type="file" name="<?=$arItem["CODE"]?><?=($arItem["MULTIPLE"] == "Y")? '[]' : ''?>" id="<?=$arItem["CODE"]?>" <?=($arItem["MULTIPLE"] == "Y")? 'multiple' : ''?>>
                 </div>     
             
                 <?break;
@@ -48,7 +48,7 @@
 
                 <?foreach ($arItem["LIST_ITEMS"] as $checkboxKey => $checkboxItem):?>
                     <div class="checkbox_cont">
-                        <input type="checkbox" name="<?=$arItem["CODE"]?>[]" id="<?=$checkboxItem["XML_ID"]?>">
+                        <input type="checkbox" name="<?=$arItem["CODE"]?>[]" value="<?=$checkboxItem['ID']?>" id="<?=$checkboxItem["XML_ID"]?>">
                         <label for="<?=$checkboxItem["XML_ID"]?>"><?=$checkboxItem["VALUE"]?></label>
                     </div>
                 <?endforeach;?>
