@@ -1,5 +1,5 @@
 <?php
-namespace Kontur\Sbplevoberezniybank;
+namespace Ik\Basicmodule;
 
 use Bitrix\Main\Entity;
 use Bitrix\Main\Localization\Loc;
@@ -8,7 +8,7 @@ class DataTable extends Entity\DataManager
 {
 	public static function getTableName()
 	{
-		return 'Sbplevoberezniybank_test';
+		return 'Basicmodule_test';
 	}
 
 	public static function getMap()

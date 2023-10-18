@@ -9,10 +9,10 @@ use Bitrix\Main\IO\Directory;
 use Bitrix\Main\Config\Option;
 IncludeModuleLangFile(__FILE__);
 
-Class IK_BasicModule extends CModule
+Class Ik_Basicmodule extends CModule
 {
 
-    var $MODULE_ID = "IK.BasicModule";
+    var $MODULE_ID = "ik.basicmodule";
     var $MODULE_VERSION;
     var $MODULE_VERSION_DATE;
     var $MODULE_NAME;
@@ -24,7 +24,7 @@ Class IK_BasicModule extends CModule
         $this->MODULE_VERSION = "0.0.1";
         $this->MODULE_VERSION_DATE = "15.07.2023";
         $this->MODULE_NAME = "Базовый модуль";
-        $this->MODULE_DESCRIPTION = "Базовый модуль";
+        $this->MODULE_DESCRIPTION = "Базовый модуль описание";
     }
 
     function DoInstall(){
@@ -56,7 +56,7 @@ Class IK_BasicModule extends CModule
     function InstallDB(){
         global $DB;
         $this->errors = false;
-        $this->errors = $DB->RunSQLBatch($_SERVER['DOCUMENT_ROOT'] . "/local/modules/IK.BasicModule/install/db/install.sql");
+        $this->errors = $DB->RunSQLBatch($_SERVER['DOCUMENT_ROOT'] . "/local/modules/ik.basicmodule/install/db/install.sql");
         if (!$this->errors) {
             return true;
         } else
@@ -66,7 +66,7 @@ Class IK_BasicModule extends CModule
     function UnInstallDB(){
         global $DB;
         $this->errors = false;
-        $this->errors = $DB->RunSQLBatch($_SERVER['DOCUMENT_ROOT'] . "/local/modules/IK.BasicModule/install/db/uninstall.sql");
+        $this->errors = $DB->RunSQLBatch($_SERVER['DOCUMENT_ROOT'] . "/local/modules/ik.basicmodule/install/db/uninstall.sql");
         if (!$this->errors) {
             return true;
         } else

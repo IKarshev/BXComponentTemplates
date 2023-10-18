@@ -1,5 +1,5 @@
 <?
-use Kontur\Sbplevoberezniybank\Main;
+use Ik\Basicmodule\Main;
 use Bitrix\Main\Localization\Loc;
 use Bitrix\Main\HttpApplication;
 use Bitrix\Main\Loader;
@@ -12,7 +12,7 @@ $module_id = htmlspecialcharsbx($request["mid"] != "" ? $request["mid"] : $reque
 Loader::includeModule($module_id);
 
 
-$Main = new Kontur\Sbplevoberezniybank\Main();
+$Main = new IK\Basicmodule\Main();
 if ( $request->isPost() ){//save settings
     $Main->save_option( $_POST );
 };

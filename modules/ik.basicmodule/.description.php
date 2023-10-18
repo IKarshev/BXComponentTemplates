@@ -7,7 +7,7 @@ use \Bitrix\Main\Localization\Loc;
 Loc::loadMessages(__FILE__);
 
 $data = array(
-	'NAME' => "СБП левобережный",
+	'NAME' => Loc::getMessage("MODULE_NAME"),
 	'SORT' => 100,
 	'CODES' => array()
 );
