@@ -103,6 +103,12 @@ $arComponentParameters = array(
             "TYPE" => "CHECKBOX",
             "REFRESH" => "Y",
         ),
+        "POPUP" => array(
+            "PARENT" => "BASE",
+            "NAME" => "Выводить форму в pop-up`е ?",
+            "TYPE" => "CHECKBOX",
+            "REFRESH" => "Y",
+        ),
     ),
 );
 
@@ -112,5 +118,13 @@ if ( $arCurrentValues["SEND_MAIL"] == "Y" ){
         "PARENT" => "SAVE_SETTINGS",
         "TYPE" => "STRING",
      );
+};
+
+if ( $arCurrentValues["POPUP"] == "Y" ){
+    $arComponentParameters['PARAMETERS']['POPUP_BTN_TITLE'] = array(
+        "NAME" => "Название кнопки для открытия pop-up",
+        "PARENT" => "BASE",
+        "TYPE" => "STRING",
+    );
 };
 ?>

@@ -10,7 +10,8 @@
 }
 
 .form_default{
-    width: 100%;
+    /* width: 100%; */
+    width: 500px !important;
     border-radius: 16px;
 }
 
@@ -138,19 +139,7 @@
     background-color: #4456f7;
     transition: .3s;
 }
-/*
-.form_default input:required ~ .label_cont{
-    display: block;
-    position: relative;
-    color: green !important;
-}
 
-.form_default input:required ~ label::after{
-    position: absolute;
-    right: -10px;
-    top: -5px;
-    content: "<span style='color: #F00;'>*</span>";
-    content: "*";
-    color: #F00;
+.form_default .input_cont input[type=text].error, .form_default select.error{
+    border: 1px solid #F00;
 }
-*/

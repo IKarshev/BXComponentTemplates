@@ -43,10 +43,21 @@ BX.ready(function(){
         
         // Установка масок
         $(`#${form_id} input[data-mask=PHONE]`).inputmask("mask", {"mask": "+7 (999) 999-99 99"});
-    
-
-
         $(`#${form_id}`).validate(ValidateSettings);
+
+
+        $(".open_popup").on("click", function(event){
+            event.preventDefault();
+
+            var target_popup_id = $(this).data("popup");
+            // var target_popup = $(`.form[data-popup=${target_popup_id}]`);
+
+            $.fancybox.open({
+                'src': `#${target_popup_id}`,
+                'type': 'inline',
+            });
+
+        });
 
     };
 });

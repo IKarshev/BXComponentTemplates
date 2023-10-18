@@ -1,8 +1,12 @@
 <?require_once($_SERVER['DOCUMENT_ROOT'] . "/bitrix/modules/main/include/prolog_before.php");?>
 
+<!-- <pre><?print_r( $arParams );?></pre> -->
 
-<!-- <pre><?//print_r( $arParams )?></pre> -->
-<div class="form form_default">
+<?if( $arParams["POPUP"]=="Y" ):?>
+    <a href="" class="open_popup" data-popup="Popup_<?=$arResult['form_id']?>"><?=$arParams['POPUP_BTN_TITLE']?></a>
+<?endif;?>
+
+<div id="Popup_<?=$arResult['form_id']?>" class="form form_default" <?=($arParams["POPUP"]=="Y") ? "style='display:none'" : ""?> >
     
     <div class="form_head">
         <div class="title"><?=$arParams["FORM_TITLE"]?></div>
