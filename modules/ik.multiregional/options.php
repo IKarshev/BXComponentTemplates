@@ -1,5 +1,5 @@
 <?
-use Ik\Multiregional\Main;
+use Ik\MultiRegional\Settings;
 use Bitrix\Main\Localization\Loc;
 use Bitrix\Main\HttpApplication;
 use Bitrix\Main\Loader;
@@ -12,11 +12,11 @@ $module_id = htmlspecialcharsbx($request["mid"] != "" ? $request["mid"] : $reque
 Loader::includeModule($module_id);
 
 
-$Main = new IK\MultiRegional\Main();
+$Settings = new Ik\MultiRegional\Settings();
 if ( $request->isPost() ){//save settings
-    $Main->save_option( $_POST );
+    $Settings->save_option( $_POST );
 };
-$current_options = $Main->get_option();
+$current_options = $Settings->get_option();
 
 $aTabs = array(
     array(
@@ -44,7 +44,7 @@ $aTabs = array(
 
 
 // формируем табы
-$aTabs = $Main->fill_params( $aTabs );
+$aTabs = $Settings->fill_params( $aTabs );
 $tabControl = new CAdminTabControl(
     "tabControl",
     $aTabs

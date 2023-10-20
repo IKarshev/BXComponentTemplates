@@ -1,5 +1,5 @@
 <?php
-namespace Ik\Multiregional;
+namespace Ik\MultiRegional;
 
 use IK\Acquiringlevoberezniybank\DataTable;
 use Bitrix\Main\ModuleManager;
@@ -8,7 +8,7 @@ use Bitrix\Main\Application;
 use Bitrix\Main\Config\Option;
 
 
-class Main{
+class Settings{
 	
 	function __construct() {
 		$this->options = new \Bitrix\Main\Config\Option();

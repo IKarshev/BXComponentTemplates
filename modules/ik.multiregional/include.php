@@ -2,6 +2,6 @@
 Bitrix\Main\Loader::registerAutoloadClasses(
 	"ik.multiregional",
 	array(
-		"Ik\\Multiregional\\Main" => "lib/main.php",
+		"Ik\\MultiRegional\\Settings" => "lib/settings.php",
 	)
 );
