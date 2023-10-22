@@ -18,6 +18,8 @@ if ( $request->isPost() ){//save settings
 };
 $current_options = $Settings->get_option();
 
+$testList =  array('Значение 1', 'Значение 2', 'Значение 3', 'Значение 4');
+
 $aTabs = array(
     array(
         "DIV" => "edit",
@@ -37,6 +39,15 @@ $aTabs = array(
                 "",
                 array("text")
             ),
+            array( // Настройка
+                "infoblock",
+                "Выберите инфоблок",
+                "",
+                array("selectbox", array(
+                    "test1" => "test11",
+                    "test2" => "test22",
+                )),
+            ),
             Loc::getMessage("FALBAR_TOTOP_OPTIONS_TAB_APPEARANCE"),
         )
     ),
@@ -53,6 +64,8 @@ $tabControl->Begin();
 ?>
 
 <form id="IK_BasicModule" action="<? echo($APPLICATION->GetCurPage()); ?>?mid=<? echo($module_id); ?>&lang=<? echo(LANG); ?>" method="post">
+
+<pre><?print_r( $aTabs );?></pre>
 
 <?
 foreach($aTabs as $aTab){

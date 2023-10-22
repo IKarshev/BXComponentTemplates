@@ -65,6 +65,9 @@ class Settings{
                             case 'text':
                                 $default_type_value = "";
                                 break;
+                            case 'select':
+                                $default_type_value = array("");
+                                break;
                         };
                         // set value
                         $new_settings[$Tabskey]["OPTIONS"][$optionskey][2] = $default_type_value;
