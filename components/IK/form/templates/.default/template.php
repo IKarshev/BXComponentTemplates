@@ -67,6 +67,15 @@
                     </div>     
                 
                     <?break;
+                    case "TEXT_AREA"?>
+                        
+                        <div class="input_cont <?=$arItem["PROPERTY_TYPE"];?>">
+                            <label for="<?=$arItem["CODE"]?>"><?=$arItem["NAME"]?></label>
+                            <textarea id="<?=$arItem["CODE"]?>" <?=($arItem["IS_REQUIRED"]=='Y')?"required":""?> data-mask="<?=$arItem["MASK"]?>" name="<?=$arItem["CODE"]?>" type="text" placeholder="Введите <?=$arItem["NAME"]?>"></textarea>
+                            <div class="error_placement"></div>
+                        </div>      
+            
+                    <?break;                    
                 }?>
             <?endforeach;?>
 

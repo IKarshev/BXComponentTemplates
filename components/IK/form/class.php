@@ -81,6 +81,7 @@ class FormComponent extends CBitrixComponent implements Controllerable{
             "STRING" => Loc::getMessage('ERROR_STRING'),
             "CHECKBOX" => Loc::getMessage('ERROR_CHECKBOX'),
             "LIST" => Loc::getMessage('ERROR_LIST'),
+            "TEXT_AREA" => Loc::getMessage('ERROR_TEXT_AREA'),
             "EMAIL_VALIDATE" => Loc::getMessage('EMAIL_VALIDATE'),
         );
         
@@ -98,6 +99,7 @@ class FormComponent extends CBitrixComponent implements Controllerable{
             "L" => "LIST",
             "F" => "FILE",
             "C" => "CHECKBOX",
+            "HTML" => "TEXT_AREA",
         );
 
         // Формируем массив с масками
@@ -114,6 +116,7 @@ class FormComponent extends CBitrixComponent implements Controllerable{
         // получаем параметры
         $rsProperty = \Bitrix\Iblock\PropertyTable::getList(array(
             'filter' => array('IBLOCK_ID'=>$this->arParams['IBLOCK'],'ACTIVE'=>'Y'),
+            'order' => ['SORT' => 'ASC'],
         ));
         while($arProperty=$rsProperty->fetch()){
             // $this->arResult["PROPS"][] = $arProperty;
@@ -144,11 +147,14 @@ class FormComponent extends CBitrixComponent implements Controllerable{
                 $PropertyArr["PROPERTY_TYPE"] = $PropTypeList[ $arProperty["LIST_TYPE"] ];
             };
         
+            if( $PropertyArr["PROPERTY_TYPE"] == "STRING" && $arProperty["USER_TYPE"] == "HTML" ){
+                $PropertyArr["PROPERTY_TYPE"] = $PropTypeList[ $arProperty["USER_TYPE"] ];
+            };
             
             $this->arResult["PROPS"][] = $PropertyArr;
         };
 
-
+        $_SESSION['arParams']["filed_data"] = $this->arResult["PROPS"]; 
         return $this->arResult;
     }
 
@@ -170,7 +176,21 @@ class FormComponent extends CBitrixComponent implements Controllerable{
                         $PROP[$arkey][] = $this->validate_string( $value );
                     };
                 } else{// Валидация ключей массивов (списки)
-                    $PROP[$arkey] = $this->validate_string( $arItem );
+                    $i = false;
+                    foreach ($this->arParams["filed_data"] as $paramkey => $paramItem) {
+                        if( $paramItem["PROPERTY_TYPE"] == "TEXT_AREA" && $paramItem["CODE"] == $arkey ){
+                            $PROP[$arkey] = array( "VALUE" => array(
+                                "TEXT" => $this->validate_string( $arItem ),
+                                "TYPE" => "text",
+                            ));
+                            $i = true;
+                            break;
+                        };
+                    };
+                    if( !$i ){
+                        $PROP[$arkey] = $this->validate_string( $arItem );
+                    };
+
                 };
             };
         };

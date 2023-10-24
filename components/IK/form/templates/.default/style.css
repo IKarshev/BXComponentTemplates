@@ -5,6 +5,11 @@
     color: #F00;
     margin-top: 4px;
 }
+
+.form_default .input_cont input[type=text].error, .form_default select.error, .form_default textarea.error{
+    border: 1px solid #F00;
+}
+
 .form_default span, .form_default input, .form_default input::placeholder, .form_default select{
     font-family: Inter;
 }
@@ -140,6 +145,12 @@
     transition: .3s;
 }
 
-.form_default .input_cont input[type=text].error, .form_default select.error{
-    border: 1px solid #F00;
+.form_default textarea{
+    width: 100%;
+    font-size: 16px;
+    font-weight: 400;
+    resize: none;
+    padding: 8px;
+    border: 1px solid #E7E7E7;
+    border-radius: 12px;
 }
