@@ -2,6 +2,7 @@
 <? $APPLICATION->SetAdditionalCss(SITE_TEMPLATE_PATH . "/css/jquery.fancybox.min.css");?>
 <? $APPLICATION->SetAdditionalCss(SITE_TEMPLATE_PATH . "/css/slick-theme.css");?>
 <? $APPLICATION->SetAdditionalCss(SITE_TEMPLATE_PATH . "/css/slick.css");?>
+<? $APPLICATION->SetAdditionalCss(SITE_TEMPLATE_PATH . "/css/slick-animation.min.js");?>
 
 <!-- js -->
 <?CJSCore::Init(array("jquery"));?>
